@@ -1,0 +1,44 @@
+#include <iostream>
+#include <chrono>
+using namespace std;
+using namespace chrono;
+
+// Recursive factorial
+int factorial(int n) {
+    if (n == 0 || n == 1)
+        return 1;
+    return n * factorial(n - 1);
+}
+
+int main() {
+    int n = 6;
+    int fact = 1;
+
+    cout << "Enter a non-negative integer (e.g., 20): " << n << endl << endl;
+
+    // Iterative Method
+    auto start = high_resolution_clock::now();
+    for (int i = 1; i <= n; i++)
+        fact *= i;
+    auto end = high_resolution_clock::now();
+
+    cout << "--- Results for " << n << "! ---" << endl;
+    cout << "Iterative Result : " << fact << endl;
+    cout << "Iterative Time   : "
+         << duration_cast<nanoseconds>(end - start).count()
+         << " ns" << endl;
+
+    cout << "-----------------------------" << endl;
+
+    // Recursive Method
+    start = high_resolution_clock::now();
+    fact = factorial(n);
+    end = high_resolution_clock::now();
+
+    cout << "Recursive Result : " << fact << endl;
+    cout << "Recursive Time   : "
+         << duration_cast<nanoseconds>(end - start).count()
+         << " ns" << endl;
+
+    return 0;
+}
