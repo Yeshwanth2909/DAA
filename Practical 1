@@ -1,0 +1,77 @@
+#include <iostream>
+#include <algorithm>
+#include <chrono>
+using namespace std;
+using namespace chrono;
+
+int main() {
+    int arr[] = {45, 12, 78, 3, 56, 89, 1, 34, 23, 67};
+    int n = 10;
+    int temp[10];
+
+    cout << "Number of Elements = " << n << endl << endl;
+
+    // Bubble Sort
+    copy(arr, arr + n, temp);
+    auto start = high_resolution_clock::now();
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < n - i - 1; j++)
+            if (temp[j] > temp[j + 1])
+                swap(temp[j], temp[j + 1]);
+    auto end = high_resolution_clock::now();
+    cout << "Bubble Sort Time    : "
+         << duration_cast<microseconds>(end - start).count()
+         << " microseconds" << endl;
+
+    // Selection Sort
+    copy(arr, arr + n, temp);
+    start = high_resolution_clock::now();
+    for (int i = 0; i < n - 1; i++) {
+        int min = i;
+        for (int j = i + 1; j < n; j++)
+            if (temp[j] < temp[min])
+                min = j;
+        swap(temp[i], temp[min]);
+    }
+    end = high_resolution_clock::now();
+    cout << "Selection Sort Time : "
+         << duration_cast<microseconds>(end - start).count()
+         << " microseconds" << endl;
+
+    // Insertion Sort
+    copy(arr, arr + n, temp);
+    start = high_resolution_clock::now();
+    for (int i = 1; i < n; i++) {
+        int key = temp[i];
+        int j = i - 1;
+        while (j >= 0 && temp[j] > key) {
+            temp[j + 1] = temp[j];
+            j--;
+        }
+        temp[j + 1] = key;
+    }
+    end = high_resolution_clock::now();
+    cout << "Insertion Sort Time : "
+         << duration_cast<microseconds>(end - start).count()
+         << " microseconds" << endl;
+
+    // Merge Sort
+    copy(arr, arr + n, temp);
+    start = high_resolution_clock::now();
+    stable_sort(temp, temp + n);
+    end = high_resolution_clock::now();
+    cout << "Merge Sort Time     : "
+         << duration_cast<microseconds>(end - start).count()
+         << " microseconds" << endl;
+
+    // Quick Sort
+    copy(arr, arr + n, temp);
+    start = high_resolution_clock::now();
+    sort(temp, temp + n);
+    end = high_resolution_clock::now();
+    cout << "Quick Sort Time     : "
+         << duration_cast<microseconds>(end - start).count()
+         << " microseconds" << endl;
+
+    return 0;
+}
