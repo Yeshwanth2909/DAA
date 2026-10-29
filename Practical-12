@@ -1,0 +1,49 @@
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+using namespace std;
+
+int main() {
+    int n = 4;
+
+    int graph[4][4] = {
+        {0, 10, 15, 20},
+        {10, 0, 35, 25},
+        {15, 35, 0, 30},
+        {20, 25, 30, 0}
+    };
+
+    vector<int> cities = {1, 2, 3};
+    vector<int> bestPath;
+    int minCost = INT_MAX;
+
+    do {
+        int cost = 0;
+        int current = 0;
+
+        for (int city : cities) {
+            cost += graph[current][city];
+            current = city;
+        }
+
+        cost += graph[current][0];
+
+        if (cost < minCost) {
+            minCost = cost;
+            bestPath = cities;
+        }
+
+    } while (next_permutation(cities.begin(), cities.end()));
+
+    cout << "Minimum Cost: " << minCost << endl;
+
+    cout << "Optimal Path: 0";
+    for (int city : bestPath) {
+        cout << " -> " << city;
+    }
+    cout << " -> 0" << endl;
+
+    return 0;
+}
