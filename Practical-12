@@ -45,5 +45,8 @@ int main() {
     }
     cout << " -> 0" << endl;
 
+    // Time Complexity
+    cout << "Time Complexity: O(n * n!)" << endl;
+
     return 0;
 }
